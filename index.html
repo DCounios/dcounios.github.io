@@ -1,10 +1,156 @@
 <!DOCTYPE html>
 <html>
-<script type="text/javascript">
-	alert("test")
-</script>
+<head>
+	<title></title>
+	<style type="text/css">
+		body {
+		    background-color: #efeff5;
+		}	
+		table.table1 {
+			width: 100%;
+			border-radius: 15px;
+			border-style: none;
+		}
+		th {
+			background-color: #c6d9ec;
+			text-indent: 10px;
+			height: 50px;
+			text-align: center;
+			border-radius: 15px;
+			font-family: "Arial Black", Gadget, sans-serif;
+		}
+		tr.row1 {
+			text-align: center;
+			height: 50px;
+			/*border-radius: 15px;*/
+		}
+		input {
+			height: 50px;
+			width: 100px;
+			font-size: 200%;
+			text-align: center;
+		}
+		td.numChoose:hover {
+			background-color: #ffffcc;
+			font-weight: bold;
+		}
+		td {
+			padding-right: 10px;
+			border-radius: 15px;
+			font-weight: bold;
+		}
+	</style>
+</head>
 <body>
-Hello world.
-</body>
+<br /><br />
+<table class="table1" border="1">
+	<th colspan="10" align="left">Adults ($14 each):</th>
+	<tr class="row1">
+		<td class="numChoose" id="ad0">0</td>
+		<td class="numChoose" id="ad1">1</td>
+		<td class="numChoose" id="ad2">2</td>
+		<td class="numChoose" id="ad3">3</td>
+		<td class="numChoose" id="ad4">4</td>
+		<td class="numChoose" id="ad5">5</td>
+		<td class="numChoose" id="ad6">6</td>
+		<td class="numChoose" id="ad7">7</td>
+		<td class="numChoose" id="ad8">8</td>
+		<td class="numChoose" id="ad9">9</td>
+	</tr>
+</table>
+<br />
+<table class="table1" border="1">
+	<th colspan="10" align="left">Children ($9 each, under 5 free):</th>
+	<tr class="row1">
+		<td class="numChoose" id="ch0">0</td>
+		<td class="numChoose" id="ch1">1</td>
+		<td class="numChoose" id="ch2">2</td>
+		<td class="numChoose" id="ch3">3</td>
+		<td class="numChoose" id="ch4">4</td>
+		<td class="numChoose" id="ch5">5</td>
+		<td class="numChoose" id="ch6">6</td>
+		<td class="numChoose" id="ch7">7</td>
+		<td class="numChoose" id="ch8">8</td>
+		<td class="numChoose" id="ch9">9</td>
+	</tr>
+</table>
+<br /><br />
+<table class="table3">
+	<tr>
+		
+		<!-- <td><b>ADULTS: </b></td> -->
+		<td><input type="hidden" id="adultNumber" value="0" readonly></td>
+		<!-- <td><input type="text" id="adultNumber" value="0" readonly></td> -->
+	</tr>
+	<tr>
+		
+		<!-- <td><b>CHILDREN: </b></td> -->
+		<td><input type="hidden" id="childNumber" value="0" readonly></td>
+		<!-- <td><input type="text" id="childNumber" value="0" readonly></td> -->
+	</tr>
+	<tr>
+		<td><b>TOTAL:</b> </td>
+		<td><input type="text" id="totalPrice" readonly></td>
+	</tr>
 
+</table>
+
+<script type="text/javascript">
+
+	document.getElementById('ad0').onclick = function() { document.getElementById('adultNumber').value = 0; calcPrice();setCellBgColor('ad','0')};
+	document.getElementById('ad1').onclick = function() { document.getElementById('adultNumber').value = 1; calcPrice();setCellBgColor('ad','1')};
+	document.getElementById('ad2').onclick = function() { document.getElementById('adultNumber').value = 2; calcPrice();setCellBgColor('ad','2')};
+	document.getElementById('ad3').onclick = function() { document.getElementById('adultNumber').value = 3; calcPrice();setCellBgColor('ad','3')};
+	document.getElementById('ad4').onclick = function() { document.getElementById('adultNumber').value = 4; calcPrice();setCellBgColor('ad','4')};
+	document.getElementById('ad5').onclick = function() { document.getElementById('adultNumber').value = 5; calcPrice();setCellBgColor('ad','5');}
+	document.getElementById('ad6').onclick = function() { document.getElementById('adultNumber').value = 6; calcPrice();setCellBgColor('ad','6')};
+	document.getElementById('ad7').onclick = function() { document.getElementById('adultNumber').value = 7; calcPrice();setCellBgColor('ad','7')};
+	document.getElementById('ad8').onclick = function() { document.getElementById('adultNumber').value = 8; calcPrice();setCellBgColor('ad','8')};
+	document.getElementById('ad9').onclick = function() { document.getElementById('adultNumber').value = 9; calcPrice();setCellBgColor('ad','9')};
+
+	document.getElementById('ch0').onclick = function() { document.getElementById('childNumber').value = 0; calcPrice();setCellBgColor('ch','0')};
+	document.getElementById('ch1').onclick = function() { document.getElementById('childNumber').value = 1; calcPrice();setCellBgColor('ch','1')};
+	document.getElementById('ch2').onclick = function() { document.getElementById('childNumber').value = 2; calcPrice();setCellBgColor('ch','2')};
+	document.getElementById('ch3').onclick = function() { document.getElementById('childNumber').value = 3; calcPrice();setCellBgColor('ch','3')};
+	document.getElementById('ch4').onclick = function() { document.getElementById('childNumber').value = 4; calcPrice();setCellBgColor('ch','4')};
+	document.getElementById('ch5').onclick = function() { document.getElementById('childNumber').value = 5; calcPrice();setCellBgColor('ch','5')};
+	document.getElementById('ch6').onclick = function() { document.getElementById('childNumber').value = 6; calcPrice();setCellBgColor('ch','6')};
+	document.getElementById('ch7').onclick = function() { document.getElementById('childNumber').value = 7; calcPrice();setCellBgColor('ch','7')};
+	document.getElementById('ch8').onclick = function() { document.getElementById('childNumber').value = 8; calcPrice();setCellBgColor('ch','8')};
+	document.getElementById('ch9').onclick = function() { document.getElementById('childNumber').value = 9; calcPrice();setCellBgColor('ch','9')};
+
+	function calcPrice() {
+		var currentAdultNumber = 0;
+		var currentChildNumber = 0;
+		var childPrice = 9;
+		var adultPrice = 14;
+		currentChildNumber = document.getElementById('childNumber').value;
+		currentAdultNumber = document.getElementById('adultNumber').value;
+		var total = (currentChildNumber * childPrice) + (adultPrice * currentAdultNumber);
+
+		document.getElementById('totalPrice').value = total;
+
+	};
+
+	function setCellBgColor(adultOrChild,elementNum) {
+		if (adultOrChild == 'ad'){
+			document.getElementById('ad' + elementNum).style.backgroundColor  = '#ffffcc';
+			for (var i = 0;i < 10; i++) {
+				if (i != elementNum) {
+					document.getElementById('ad' + i).style.backgroundColor  = '#efeff5';
+				}
+			}
+		}
+		if (adultOrChild == 'ch'){
+			document.getElementById('ch' + elementNum).style.backgroundColor  = '#ffffcc';
+			for (var i = 0;i < 10; i++) {
+				if (i != elementNum) {
+					document.getElementById('ch' + i).style.backgroundColor  = '#efeff5';
+				}
+			}				
+		}
+	}
+		
+</script>
+</body>
 </html>
