@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		body {
+		    background-color: #efeff5;
+		}
+
+		table {
+		    border: none;
+		    width: 100%;
+		} 
+		th {
+			background-color: #c6d9ec;
+		}
+		th, td {
+    		padding: 15px;
+    		text-align: left;
+    		border-bottom: 1px solid #ddd;
+		}
+
+		/*tr:hover { background-color: #ffffcc }*/
+		td:hover {
+			background-color: #ffffcc;
+			font-weight: bold;
+		}
+		tr:nth-child(even) {background-color: #e6eeff}
+
+
+</style>
+</head>
+	
+
+<b>Adult Price:</b> <input type="number" id="intAdultPrice" value="15" min="8" max="20"/> <br /><br />
+<b>Child Price:</b> <input type="number" id="intChildPrice" value="10" min="5" max="18"/> <br /><br />
+<input type="button" id = "btnGenerate" value="Generate Table" /> <hr />
+<div id="dvTable"> </div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+$(function () {
+    $("#btnGenerate").click(function () {
+
+ 
+        //Create a HTML Table element.
+        var table = $("<table />");
+        //table[0].border = "1";
+ 
+        //Get the count of columns.
+        var columnCount = 10
+		var childPrice = parseFloat($('#intChildPrice').val());
+        var adultPrice = parseFloat($('#intAdultPrice').val());
+
+        //Add the data rows.
+        for (var x = 0; x < (columnCount + 1); x++) {
+            
+            row = $(table[0].insertRow(-1));
+
+            for (var y = 0; y < columnCount; y++) {
+
+                 if (y==0) {
+                     if ((x-1) == -1) {
+                        // var cell = $("<td>-</td>");
+                        // var cell = $("<th>Adult<br>Child</th>");
+                        var cell = $("<th>-</th>");
+                        row.append(cell);
+                     }
+                     else {
+                        var cell = $("<th>Children: " + (x-1) + "</th>");
+                        row.append(cell);
+                    }
+
+                }
+                if (x==0){
+                	// if (y==1) {
+                	// 	var cell = $("<th>" + (y) + " Adult</th>");	
+                	// }
+                	// else {
+                	// 	var cell = $("<th>" + (y) + " Adults</th>");	
+                	// }
+                    var cell = $("<th>Adults: " + (y) + " </th>"); 
+                    row.append(cell);
+
+                }
+                if (x>0 && y>-1) {
+                    var finalPrice = parseFloat(((x-1) * childPrice) + (y * adultPrice)).toFixed(2);
+                    var cell = $("<td>" + (finalPrice) + "</td>");
+                    row.append(cell);
+                }
+            }
+
+        }
+ 
+        var dvTable = $("#dvTable");
+        dvTable.html("");
+        dvTable.append(table);
+    });
+});
+
+</script>
+</html>
